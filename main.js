@@ -54,13 +54,13 @@ function calcul() {
     let $input = document.getElementById("champ").value;
     // Je donne à $input la valeur du champ <input/> du HTML.
 
-    $input = $input.replace(',', '.')
+    $input = $input.replace(',', '.');
     // Si l'utilisateur a entré un nombre à virgule avec une virgule
     // au lieu d'un point, je la remplace par le point.. En 
     // programmation, 2.5 est un nombre décimale.
     // Alors que 2,5 signifie le nombre 2 puis le nombre 5.
 
-    $input = $input.trim()
+    $input = $input.trim();
     // trim() permet de supprimer tout les espaces inutiles.
     // (3   +5 -3) devient (3+5-3)
 
@@ -73,7 +73,7 @@ function calcul() {
     
 
     
-    let index = resultat.indexOf('.')
+    let index = resultat.indexOf('.');
     // Ici je cherche à savoir si la variable résultat contient un 
     // nombre entier ou un nombre à virgule. Si indexOf() renvoi -1,
     // c'est qu'il n'y as pas de point dans ma chaîne, et donc que 
@@ -146,7 +146,7 @@ function calcul() {
                     // C'est le morceau de chaine de caractère qui correspond
                     // à la partie de je détecte avec mon expression régulière.
 
-                    correspondance = correspondance.replace("(", "").replace(")", "")
+                    correspondance = correspondance.replace("(", "").replace(")", "");
                     // Ici je "nettoie" ma correspondance pour surprimer les 
                     // parenthèse qui ne sont plus utile.
 
@@ -197,7 +197,7 @@ function calcul() {
                     // Grace à la méthode split() on sépare la chaîne x^y en un tableau qui 
                     // contient x et y. À ce moment values à pour valeur ['x', 'y']
 
-                    return Math.pow(parseFloat(values[0]), parseInt(values[1])).toString()
+                    return Math.pow(parseFloat(values[0]), parseInt(values[1])).toString();
                     // Math.pow correspond à la librairie Math qui possède une méthode
                     // pow() (power) qui peut effectuer le calcul d'une puissance.
                     // pow() attend deux arguments, deux nombres.
@@ -220,7 +220,7 @@ function calcul() {
                     let values = correspondance.trim();
                     // On supprime les éventuels espaces.
 
-                    let index = values.indexOf('/')
+                    let index = values.indexOf('/');
                     // Avec la méthode indexOf(), on test si le slash est dans la chaine.
                     // Si oui indexOf revoie l'index ou il se situe dans la chaine, sinon 
                     // il renvoie -1.
@@ -229,16 +229,16 @@ function calcul() {
                         // Si index vaut -1 c'est que / n'est pas dans la chaine,
                         // donc j'ai une multiplication.
 
-                        values = values.split('*')
+                        values = values.split('*');
                         // Je sépare les deux nombres pour ensuite les multiplier 
                         // entre eux. Attention les élements d'un tableau sont 
                         // numéroté à partir de 0.
 
-                        values = parseFloat(values[0]) * parseFloat(values[1])
+                        values = parseFloat(values[0]) * parseFloat(values[1]);
                     } else {
                         // Sinon j'ai une division que j'éxécute de la même manière que la division.
-                        values = values.split('/')
-                        values = parseFloat(values[0]) / parseFloat(values[1])
+                        values = values.split('/');
+                        values = parseFloat(values[0]) / parseFloat(values[1]);
                     }
 
 
@@ -254,8 +254,8 @@ function calcul() {
                     // ... on remplace par le calcul de cette dernière, toujours dans
                     // une fonction anonyme.
 
-                    let values = correspondance.trim()
-                    let index = values.indexOf('+')
+                    let values = correspondance.trim();
+                    let index = values.indexOf('+');
                     // Avec la méthode indexOf(), on test si le + est dans la chaîne.
                     // Si oui indexOf revoie l'index ou il se situe dans la chaîne, sinon 
                     // il renvoie -1.
@@ -263,16 +263,16 @@ function calcul() {
                     if (index < 0) {
                         // Si index vaut -1 c'est que + n'est pas dans la chaîne,
                         // donc j'ai une soustraction.
-                        values = values.split('-')
+                        values = values.split('-');
                         // Je sépare les deux nombres pour ensuite faire la soustraction 
                         // entre eux. Attention les éléments d'un tableau sont 
                         // numérotés à partir de 0.
 
-                        values = parseFloat(values[0]) - parseFloat(values[1])
+                        values = parseFloat(values[0]) - parseFloat(values[1]);
                     } else {
                         // Sinon j'ai une addition que j'éxecute de la même manière que la soustraction.
-                        values = values.split('+')
-                        values = parseFloat(values[0]) + parseFloat(values[1])
+                        values = values.split('+');
+                        values = parseFloat(values[0]) + parseFloat(values[1]);
                     }
 
 
