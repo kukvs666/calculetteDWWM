@@ -1,0 +1,8 @@
+C'est un script pour une calculatrice. Il n'y as qu'un seul champ 
+ d'entrée (un <input/> HTML). L'utilisateur pour ainsi entrer une
+ expression complète qui sera évaluer par le script lors du clic
+ sur le bouton. L'expression peut contenir (pour le moment) 
+ les opérateurs +, -, /, *, ^ (pour un exposant de la forme 2^3).
+ Le script supporte les nombre à virgule.
+ */
+
