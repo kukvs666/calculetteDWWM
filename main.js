@@ -55,8 +55,9 @@ function calcul() {
     // Je donne à $input la valeur du champ <input/> du HTML.
 
     $input = $input.replace(',', '.')
-    // Si l'utilisateur à entre un nombre à virgule avec une virgule
-    // au lieu d'un point. En programmation, 2.5 est un nombre décimale.
+    // Si l'utilisateur a entré un nombre à virgule avec une virgule
+    // au lieu d'un point, je la remplace par le point.. En 
+    // programmation, 2.5 est un nombre décimale.
     // Alors que 2,5 signifie le nombre 2 puis le nombre 5.
 
     $input = $input.trim()
@@ -70,15 +71,30 @@ function calcul() {
     // priorité arthmétique. Le résultat sera stocké dans la variable
     // resultat.
     
+
+    
     let index = resultat.indexOf('.')
+    // Ici je cherche à savoir si la variable résultat contient un 
+    // nombre entier ou un nombre à virgule. Si indexOf() renvoi -1,
+    // c'est qu'il n'y as pas de point dans ma chaîne, et donc que 
+    // c'est un nombre entier...
     if (index < 0){
         resultat = resultat;
+        // ... dans ce cas mon nombre ne change pas.
     } else {
+        // Dans le cas contraire (else veut dire sinon), je sépare les 
+        // deux nombres (un de chaque coté de la virgule) pour tronquer
+        // la partie décimale. J'utilise pour ça la méthode slice()
+        // qui prend pour argument l'index de départ puis l'index de fin.
         resultat = resultat.split('.');
         resultat = resultat[0] + '.' + resultat[1].slice(0,3);
+        // Notez qu'ici j'utilise la concaténation, c'est à dire 
+        // l'opérateur + pour mettre les morceaux de chaîne de 
+        // caractère les uns à la suite des autres.
     }
 
     $span = document.createElement("span");
+    $span.setAttribute("id","resultat");
     $br = document.createElement("br");
     document.body.append($br);
     document.body.append($span);
@@ -122,8 +138,8 @@ function calcul() {
                 expression = expression.replace(parenthese, function(correspondance, inutile, expression) {
                     // Ici on utilise la méthode javascript replace(). On 
                     // lui donne en agrument l'expression régulière parenthese,
-                    // puis ce par quoi on veut le remplacer (ici la valeur de 
-                    // retour de la fonction anonyme.
+                    // puis ce par quoi on veut la remplacer (ici la valeur de 
+                    // retour de la fonction anonyme).
 
 
                     // Correspondance est le premier argument de la fonction.
@@ -135,7 +151,7 @@ function calcul() {
                     // parenthèse qui ne sont plus utile.
 
                     return inside(correspondance);
-                    // enfin je retourne le résultat du calcul de ce qu'il y 
+                    // Enfin je retourne le résultat du calcul de ce qu'il y 
                     // avait à l'intérieur des parenthèses. Pour cela j'appel
                     // la fonction inside() en lui donnant ma correspondance en
                     // argument.
@@ -152,7 +168,7 @@ function calcul() {
         // test la condition de sortie de la boucle.
 
         return expression;
-        // Si on sort de la boucle, c'est que le calcul est terminer. On peut donc 
+        // Si on sort de la boucle, c'est que le calcul est terminé. On peut donc 
         // retourner la valeur de la variable expression, qui sera injecter dans 
         // le code HTML
     }
@@ -162,35 +178,36 @@ function calcul() {
 
 
     function inside(expression) {
-        // La fonction inside va s'occuper de faire les calculs avec les différent
-        // opérateur mathématique, par ordre de priorité (soit puissance, puis
-        // multiplication et division, puis addition et soustraction.
+        // La fonction inside va s'occuper de faire les calculs avec les différents
+        // opérateurs mathématiques, par ordre de priorité (pour rappel: puissance, 
+        // puis multiplication et division, puis addition et soustraction).
 
-        // de nouveau une boucle do...while pour de le code soit executer AU MOINS
-        // UNE FOIS. De nouveau si la variable expression contient un nombre unique 
-        // c'est que tout les calcul sont fait.
+        // De nouveau une boucle do...while pour de le code soit éxécuté AU MOINS
+        // UNE FOIS. De nouveau, à la fin de la boucle on teste si la variable 
+        // expression contient un nombre unique. Si c'est le cas, c'est que tout 
+        // les calculs ont été fait.
         do {
 
             if (expression.match(exposant) != null) {
                 // Si on détecte un exposant ...
                 expression = expression.replace(exposant, function(correspondance, inutile, text) {
-                    // ... on  remplace cet exposant par le résultat de la fonction annonyme.
+                    // ... on  remplace cet exposant par le résultat de la fonction anonyme.
 
                     var values = correspondance.split("^");
-                    // grace à la méthose split() on sépare la chaine x^y en un tableau qui 
+                    // Grace à la méthode split() on sépare la chaîne x^y en un tableau qui 
                     // contient x et y. À ce moment values à pour valeur ['x', 'y']
 
                     return Math.pow(parseFloat(values[0]), parseInt(values[1])).toString()
                     // Math.pow correspond à la librairie Math qui possède une méthode
                     // pow() (power) qui peut effectuer le calcul d'une puissance.
-                    // pow() attend deux argument, deux nombre.
-                    // comme nos valeur x et y sont des chaines de caractère, il faut 
-                    // les transformer en nombre avec les fonctions parseInt et parseFloat, 
+                    // pow() attend deux arguments, deux nombres.
+                    // Comme nos valeur x et y sont des chaînes de caractère, il faut 
+                    // les transformer en nombres avec les fonctions parseInt et parseFloat, 
                     // respectivement pour un entier et un nombre à virgule.
                     // Le premier argument est le nombre (qui peut être à virgule) et le
                     // second est l'exposant (qui est obligatoirement un entier).
                     //
-                    // Enfin avec la méthode .toString() je transforme le résultat en chaine 
+                    // Enfin avec la méthode .toString() je transforme le résultat en chaîne 
                     // caractère pour pouvoir l'intégrer au reste de mon expression.
 
                 });
@@ -198,28 +215,28 @@ function calcul() {
                 // Si on détecte une multiplication ou une division ...
                 expression = expression.replace(multi_divi, function(correspondance, inutile, text) {
                     // ... on remplace par le calcul de cette dernière, toujours dans
-                    // une fonction annonyme.
+                    // une fonction anonyme.
 
                     let values = correspondance.trim();
-                    // on supprime les éventuels espaces.
+                    // On supprime les éventuels espaces.
 
                     let index = values.indexOf('/')
                     // Avec la méthode indexOf(), on test si le slash est dans la chaine.
                     // Si oui indexOf revoie l'index ou il se situe dans la chaine, sinon 
-                    // il renvoie -1
+                    // il renvoie -1.
 
                     if (index < 0) {
                         // Si index vaut -1 c'est que / n'est pas dans la chaine,
-                        // donc j'ai une multiplication
+                        // donc j'ai une multiplication.
 
                         values = values.split('*')
                         // Je sépare les deux nombres pour ensuite les multiplier 
                         // entre eux. Attention les élements d'un tableau sont 
-                        // numéroté à partir de 0
+                        // numéroté à partir de 0.
 
                         values = parseFloat(values[0]) * parseFloat(values[1])
                     } else {
-                        // sinon j'ai une division que j'execute de la même manière que la division
+                        // Sinon j'ai une division que j'éxécute de la même manière que la division.
                         values = values.split('/')
                         values = parseFloat(values[0]) / parseFloat(values[1])
                     }
@@ -235,25 +252,25 @@ function calcul() {
                 // Si on détecte une addition ou une soustraction...
                 expression = expression.replace(plus_moins, function(correspondance, inutile, text) {
                     // ... on remplace par le calcul de cette dernière, toujours dans
-                    // une fonction annonyme.
+                    // une fonction anonyme.
 
                     let values = correspondance.trim()
                     let index = values.indexOf('+')
-                    // Avec la méthode indexOf(), on test si le plus est dans la chaine.
-                    // Si oui indexOf revoie l'index ou il se situe dans la chaine, sinon 
-                    // il renvoie -1
+                    // Avec la méthode indexOf(), on test si le + est dans la chaîne.
+                    // Si oui indexOf revoie l'index ou il se situe dans la chaîne, sinon 
+                    // il renvoie -1.
 
                     if (index < 0) {
-                        // Si index vaut -1 c'est que + n'est pas dans la chaine,
+                        // Si index vaut -1 c'est que + n'est pas dans la chaîne,
                         // donc j'ai une soustraction.
                         values = values.split('-')
                         // Je sépare les deux nombres pour ensuite faire la soustraction 
-                        // entre eux. Attention les élements d'un tableau sont 
-                        // numéroté à partir de 0
+                        // entre eux. Attention les éléments d'un tableau sont 
+                        // numérotés à partir de 0.
 
                         values = parseFloat(values[0]) - parseFloat(values[1])
                     } else {
-                        // sinon j'ai une addition que j'execute de la même manière que la soustraction
+                        // Sinon j'ai une addition que j'éxecute de la même manière que la soustraction.
                         values = values.split('+')
                         values = parseFloat(values[0]) + parseFloat(values[1])
                     }
@@ -261,12 +278,22 @@ function calcul() {
 
 
                     return values.toString();
-                    // et on retourne la valeur de values, transformer en chaine de carractère
+                    // Et on retourne la valeur de values, transformée en chaîne de caractère
                 });
             }
         } while (expression.match(unique) === null);
+        // Nous avons de nouveau une condition pour la boucle do...while, comme pour la fonction
+        // priority, cette condition test si il ne reste qu'un nombre unique, ou si au contraire
+        // il reste des opérations à effectuer 
+        
         return expression;
+        // On retourne la variable expression.
 
     }
 }
 
+/* 
+ * N'hésitez pas à essayer d'améliorer le programme. il existe plein d'opérateur mathématiques
+ * qui pourrait être ajoutés. N'hésitez pas non plus à corriger mes fautes de francais, je 
+ * suis sûr qu'il y en as! ;) 
+ */

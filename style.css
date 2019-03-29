@@ -1,1 +1,24 @@
-
+body{
+    background-color: #93ecdc;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch center;
+    justify-content: flex-start space-between;
+}
+span{
+    width: 500px;
+    align-self: center;
+    background-color: #e5e399;
+    border-style: solid;
+    border-radius: 25px 10px;
+    margin: 10px 0px;
+}
+span#entree{
+    display: flex;
+    justify-content: center;
+}
+span#resultat{
+    display: flex;
+    justify-content: center;
+    margin: 1px 0px;
+}

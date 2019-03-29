@@ -1,12 +1,31 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Calculette</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <input id="champ">
-    <button onclick="calcul()">cliquez-moi</button>
+    <span id="explication">
+        <h1>Calculatrice champ unique.</h1>
+        <p>L'utilisation est très simple. Il suffit d'entrer une
+        expression dans le champ ci-dessous puis d'éxécuter.
+        Les opérateurs supporté sont:</p>
+        <ul>
+            <li>Les puissances, sous la forme 'x^y'.</li>
+            <li>La multiplication, avec le symbole '*' .</li>
+            <li>La division, avec le symbole '/' .</li>
+            <li>La soustraction, avec le symbole '-' .</li>
+            <li>L'addition, avec le symbole '+' .</li>
+            <li>L'utilisation des parenthèses. !! Attention cependant à écrire explicitement
+            la multiplication avant d'ouvrir une parenthèse!</li>
+        </ul>
+    </span>
+    <span id="entree">
+        <input id="champ">
+        <button onclick="calcul()">Éxécuter</button>
+    </span>    
     <script type="text/javascript" src="main.js"></script>
     </body>
 </html>
